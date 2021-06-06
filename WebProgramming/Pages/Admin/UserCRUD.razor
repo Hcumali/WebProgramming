@@ -1,0 +1,45 @@
+﻿@page "/admin/user"
+@using WebProgramming.Models
+
+
+<h3>NewsCRUD</h3>
+<a href="/admin/user/addUser" class="btn btn-outline-primary float-right m-b-1">Add</a>
+<table class="table table-bordered table-primary table-striped table-hover">
+    <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Email</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in users)
+        {
+            <tr>
+                <td>@item.UserName </td>
+                <td>@item.Email</td>
+                <td><a href="/admin/user/updateuser/@item.Id" class="btn btn-outline-warning">Update</a></td>
+                <td><a href="/admin/user/deleteuser/@item.Id" class="btn btn-outline-danger">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<style>
+    td {
+        text-align: center;
+    }
+</style>
+
+@code {
+    private List<IdentityUser> users = new List<IdentityUser>();
+
+    protected async override Task OnInitializedAsync()
+    {
+        using (NewsDbContext context = new NewsDbContext())
+        {
+            users = await context.Users.ToListAsync();
+        }
+        await base.OnInitializedAsync();
+    }
+}

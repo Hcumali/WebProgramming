@@ -1,0 +1,75 @@
+﻿@model SignUpModel
+@{
+    Layout = "_AccountLayout";
+}
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+
+            @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, null))
+            {
+                <span class="login100-form-title p-b-32">
+                    Account Login
+                </span>
+
+                <div class="wrap-input100 validate-input m-b-36">
+                    @Html.ValidationSummary(false ,null,new {@class="text-danger" })
+                </div>
+
+                @Html.LabelFor(x => x.UserName, "Username", new { @class = "txt1 p-b-11" })
+                <div class="wrap-input100 validate-input m-b-36" data-validate="Username is required">
+                    @Html.TextBoxFor(x => x.UserName, null, new { @class = "input100" })
+                    <span class="focus-input100"></span>
+                </div>
+
+                @Html.LabelFor(x => x.Password, "Password", new { @class = "txt1 p-b-11" })
+                <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                    <span class="btn-show-pass">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    @Html.PasswordFor(x => x.Password, new { @class = "input100" })
+
+                    <span class="focus-input100"></span>
+                </div>
+                @Html.LabelFor(x => x.ConfrimPassword, "Confrim Password", new { @class = "txt1 p-b-11" })
+                <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                    <span class="btn-show-pass">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    @Html.PasswordFor(x => x.ConfrimPassword, new { @class = "input100" })
+
+                    <span class="focus-input100"></span>
+                </div>
+                @Html.LabelFor(x => x.Email, "Email", new { @class = "txt1 p-b-11" })
+                <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                    <span class="btn-show-pass">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    @Html.TextBoxFor(x => x.Email, new { @class = "input100" })
+
+                    <span class="focus-input100"></span>
+                </div>
+                @Html.LabelFor(x => x.TelphoneNumber, "Telphone Number", new { @class = "txt1 p-b-11" })
+                <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                    <span class="btn-show-pass">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    @Html.TextBoxFor(x => x.TelphoneNumber, new { @class = "input100" })
+
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn" style="margin-right:20%;">
+                        Sign Up
+                    </button>
+                    @Html.ActionLink("Return Login Page", "Login", "Account", null, new { @class = "login100-form-btn text-white" })
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+<div id="dropDownSelect1"></div>

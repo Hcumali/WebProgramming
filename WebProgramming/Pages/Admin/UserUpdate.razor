@@ -1,0 +1,99 @@
+﻿@page "/admin/user/updateuser/{id}"
+
+<h3>UserUpdate</h3>
+@inject UserManager<IdentityUser> userManager;
+@inject NavigationManager NavManager
+<EditForm Model="signUpModel" OnValidSubmit="HandledSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    @if (errorMessages.Count > 0)
+    {
+        <div class="validation" style="display:inline">
+            @foreach (var item in errorMessages)
+            {
+                <p class="text-danger">@item</p>
+            }
+        </div>
+    }
+
+    <style>
+        .validation {
+            display: none;
+        }
+    </style>
+    <div class="form-group">
+        <label class="form-control-label">Username : </label><br />
+        <InputText class="form-control" @bind-Value="signUpModel.UserName"></InputText><br />
+        <label class="form-control-label">Password : </label><br />
+
+        <InputText class="form-control" @bind-Value="signUpModel.Password"></InputText><br />
+
+        <label class="form-control-label">ConfrimPassword : </label><br />
+
+        <InputText class="form-control" @bind-Value="signUpModel.ConfrimPassword"></InputText><br />
+
+        <label class="form-control-label">Email : </label><br />
+
+        <InputText class="form-control" @bind-Value="signUpModel.Email"></InputText><br />
+
+        <label class="form-control-label">TelphoneNumber : </label><br />
+
+        <InputText class="form-control" @bind-Value="signUpModel.TelphoneNumber"></InputText><br />
+
+        <label class="form-control-label">Role : </label><br />
+    </div>
+
+    <InputSelect class="form-control" name="Please Enter" @bind-Value="role">
+        <optgroup label="Please Enter">
+            <option value="Admin">Admin</option>
+            <option value="Client">Client</option>
+        </optgroup>
+    </InputSelect>
+    <br />
+    <button class="btn btn-primary" type="submit">Add User</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+    string role;
+    IdentityUser user = new IdentityUser();
+    SignUpModel signUpModel = new SignUpModel();
+    List<string> errorMessages = new List<string>();
+
+    protected async override Task OnInitializedAsync()
+    {
+        using (NewsDbContext context = new NewsDbContext())
+        {
+            user = await context.Users.FindAsync(id);
+            signUpModel.UserName = user.UserName;
+            signUpModel.Email = user.Email;
+            signUpModel.TelphoneNumber = user.PhoneNumber;
+        }
+        await base.OnInitializedAsync();
+    }
+
+    private async Task HandledSubmit()
+    {
+        errorMessages.Clear();
+        user.UserName = signUpModel.UserName;
+        user.Email = signUpModel.Email;
+        user.SecurityStamp = "TolgaEmirFatih";
+        user.PhoneNumber = signUpModel.TelphoneNumber;
+
+        var updateUser = await userManager.UpdateAsync(user);
+
+        if (updateUser.Errors.Count() > 0)
+        {
+            foreach (var item in (await userManager.CreateAsync(user, signUpModel.Password)).Errors)
+            {
+                errorMessages.Add(item.Description);
+            }
+        };
+        if (updateUser.Succeeded)
+        {
+            await userManager.AddToRoleAsync(user, role);
+            NavManager.NavigateTo("/admin/user");
+        }
+    }
+}

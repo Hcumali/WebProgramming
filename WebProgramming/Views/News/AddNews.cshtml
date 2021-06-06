@@ -1,0 +1,64 @@
+﻿@model NewsModel
+@{
+    Layout = "_AccountLayout";
+}
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+
+            @using (Html.BeginForm("AddNews", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <span class="login100-form-title p-b-32">
+                    Add News
+                </span>
+
+                <div class="wrap-input100 validate-input m-b-36">
+                    @Html.ValidationSummary(false, null, new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(x => x.Title, "Title", new { @class = "txt1 p-b-11" })
+                <div class="wrap-input100 validate-input m-b-36" data-validate="Username is required">
+                    @Html.TextBoxFor(x => x.Title, null, new { @class = "input100" })
+                    <span class="focus-input100"></span>
+                </div>
+
+                @Html.LabelFor(x => x.SubTitle, "SubTitle", new { @class = "txt1 p-b-11" })
+                <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                    <span class="btn-show-pass">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    @Html.TextBoxFor(x => x.SubTitle, new { @class = "input100" })
+
+                    <span class="focus-input100"></span>
+                </div>
+                @Html.LabelFor(x => x.Description, "Description", new { @class = "txt1 p-b-11" })
+                <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                    <span class="btn-show-pass">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    @Html.TextAreaFor(x => x.Description, new { @class = "input100" })
+
+                    <span class="focus-input100"></span>
+                </div>
+                @Html.LabelFor(x => x.Image, "Image", new { @class = "txt1 p-b-11" })
+                <div class="wrap-input100 validate-input m-b-12" data-validate="Password is required">
+                    <span class="btn-show-pass">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    <input type="file" name="Image" />
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn" style="margin-right:17%;">
+                        Add News
+                    </button>
+                    <a class="login100-form-btn" href="/admin">Return Admin Panel</a>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+<div id="dropDownSelect1"></div>

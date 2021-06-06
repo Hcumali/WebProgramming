@@ -1,0 +1,17 @@
+﻿@page "/admin"
+@attribute [Authorize(Roles ="Admin")]
+@using Microsoft.AspNetCore.Authorization;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Admin</title>
+    <link href="/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <base href="/" />
+</head>
+<body>
+    <component type="typeof(Routed)" render-mode="Server" />
+    <script src="_content/BlazorInputFile/inputfile.js"></script>
+    <script src="/_framework/blazor.server.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+</body>
+</html>
