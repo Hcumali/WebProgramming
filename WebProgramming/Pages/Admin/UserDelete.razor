@@ -4,22 +4,23 @@
 <h3>UserDelete</h3>
 
 @code {
+    [Inject]
+    private NewsDbContext Context { get; set; }
+
     [Parameter]
     public string id { get; set; }
     IdentityUser identityUser = new IdentityUser();
     protected async override Task OnInitializedAsync()
     {
-        using (NewsDbContext context = new NewsDbContext())
-        {
 
-            identityUser = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
-            bool isSuccess = (await userManager.DeleteAsync(identityUser)).Succeeded;
-            await context.SaveChangesAsync();
-            if (isSuccess)
-            {
-                NavManager.NavigateTo("/admin/user");
-            }
+        identityUser = await Context.Users.FirstOrDefaultAsync(x => x.Id == id);
+        bool isSuccess = (await userManager.DeleteAsync(identityUser)).Succeeded;
+        await Context.SaveChangesAsync();
+        if (isSuccess)
+        {
+            NavManager.NavigateTo("/admin/user");
         }
+
 
         await base.OnInitializedAsync();
     }

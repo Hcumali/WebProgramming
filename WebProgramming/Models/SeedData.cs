@@ -10,17 +10,18 @@ namespace WebProgramming.Models
 {
     public static class SeedData
     {
-        public static async Task<int> EnsurePopulated(IApplicationBuilder app)
+        public static async Task<int> EnsurePopulated(this IApplicationBuilder app)
         {
-            using (NewsDbContext context = new NewsDbContext())
+            var newsDbContext = app.ApplicationServices.GetService<NewsDbContext>();
+
+            if (newsDbContext.Database.GetPendingMigrations().Any())
             {
-                if (context.Database.GetPendingMigrations().Any())
-                {
-                    context.Database.Migrate();
-                }
-                if (!context.News.Any())
-                {
-                    context.News.AddRange(
+                newsDbContext.Database.Migrate();
+                newsDbContext.Database.EnsureCreated();
+            }
+            if (!newsDbContext.News.Any())
+            {
+                newsDbContext.News.AddRange(
                         new News
                         {
                             Title = "Göbekli Tolga Hikayesi",
@@ -29,11 +30,16 @@ namespace WebProgramming.Models
                             Image = new byte[10]
                         }
                     );
-                    
-                    
-                }
-                return await context.SaveChangesAsync();
+                newsDbContext.Roles.Add(new Microsoft.AspNetCore.Identity.IdentityRole
+                {
+                    Id = new Guid().ToString(),
+                    Name = "Admin",
+                    NormalizedName = "admin",
+                    ConcurrencyStamp = "Admin"
+                });
             }
+            return await newsDbContext.SaveChangesAsync();
+
 
 
         }

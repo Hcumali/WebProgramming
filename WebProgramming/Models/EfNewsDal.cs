@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace WebProgramming.Models
 {
-    public class EfNewsDal : EfEntityRepositoryBase<News,NewsDbContext>,INewsDal
+    public class EfNewsDal : EfEntityRepositoryBase<News>,INewsDal
     {
-        
+        public EfNewsDal(NewsDbContext newsDbContext) : base(newsDbContext)
+        {
+        }
     }
 }

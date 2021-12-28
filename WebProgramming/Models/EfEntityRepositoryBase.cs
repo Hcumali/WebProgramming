@@ -7,74 +7,73 @@ using System.Threading.Tasks;
 
 namespace WebProgramming.Models
 {
-    public abstract class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>, IDisposable 
+    public abstract class EfEntityRepositoryBase<TEntity> : IEntityRepository<TEntity>, IDisposable
         where TEntity : class, IEntity, new()
-        where TContext : DbContext, new()
     {
+        private readonly DbContext _dbContext;
+        public EfEntityRepositoryBase(DbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public virtual IQueryable<TEntity> Entity
         {
 
             get
             {
-                using (TContext context = new TContext())
-                {
-                    return context.Set<TEntity>().AsQueryable();
-                }
+
+                return _dbContext.Set<TEntity>().AsQueryable();
+
             }
         }
 
 
         public async virtual Task<TEntity> AddAsync(TEntity entity)
         {
-            using (TContext context = new TContext())
-            {
-                context.Add(entity);
-                await context.SaveChangesAsync();
-            }
+
+            _dbContext.Add(entity);
+            await _dbContext.SaveChangesAsync();
+
             return await Task.FromResult(entity);
         }
 
         public async virtual Task<TEntity> DeleteAsync(TEntity entity)
         {
-            using (TContext context = new TContext())
-            {
-                var deleteEntity = context.Entry(entity);
-                deleteEntity.State = EntityState.Deleted;
-                await context.SaveChangesAsync();
-            }
+
+            var deleteEntity = _dbContext.Entry(entity);
+            deleteEntity.State = EntityState.Deleted;
+            await _dbContext.SaveChangesAsync();
+
             return await Task.FromResult(entity);
         }
 
         public async virtual Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> filter)
         {
-            using (TContext context = new TContext())
-            {
-                return await Task.FromResult(context.Set<TEntity>().FirstOrDefault(filter));
-            }
+
+            return await Task.FromResult(_dbContext.Set<TEntity>().FirstOrDefault(filter));
+
         }
 
         public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter = null)
         {
-            using (TContext context = new TContext())
-            {
-                var setEntity = context.Set<TEntity>();
-                return await (filter == null ? setEntity.ToListAsync() : setEntity.Where(filter).ToListAsync());
-            }
+
+            var setEntity = _dbContext.Set<TEntity>();
+            return await (filter == null ? setEntity.ToListAsync() : setEntity.Where(filter).ToListAsync());
+
         }
 
         public async virtual Task<TEntity> UpdateAsync(TEntity entity)
         {
-            using (TContext context = new TContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                await context.SaveChangesAsync();
-            }
+
+            var updatedEntity = _dbContext.Entry(entity);
+            updatedEntity.State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+
             return await Task.FromResult(entity);
         }
 
         public virtual void Dispose()
         {
+            _dbContext.Dispose();
             GC.SuppressFinalize(this);
         }
     }

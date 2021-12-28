@@ -32,14 +32,16 @@
 </style>
 
 @code {
+    [Inject]
+    private NewsDbContext Context { get; set; }
+
     private List<IdentityUser> users = new List<IdentityUser>();
 
     protected async override Task OnInitializedAsync()
     {
-        using (NewsDbContext context = new NewsDbContext())
-        {
-            users = await context.Users.ToListAsync();
-        }
+
+        users = await Context.Users.ToListAsync();
+
         await base.OnInitializedAsync();
     }
 }

@@ -54,6 +54,9 @@
 </EditForm>
 
 @code {
+    [Inject]
+    private NewsDbContext Context { get; set; }
+
     [Parameter]
     public string id { get; set; }
     string role;
@@ -63,13 +66,12 @@
 
     protected async override Task OnInitializedAsync()
     {
-        using (NewsDbContext context = new NewsDbContext())
-        {
-            user = await context.Users.FindAsync(id);
-            signUpModel.UserName = user.UserName;
-            signUpModel.Email = user.Email;
-            signUpModel.TelphoneNumber = user.PhoneNumber;
-        }
+
+        user = await Context.Users.FindAsync(id);
+        signUpModel.UserName = user.UserName;
+        signUpModel.Email = user.Email;
+        signUpModel.TelphoneNumber = user.PhoneNumber;
+
         await base.OnInitializedAsync();
     }
 

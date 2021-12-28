@@ -27,6 +27,10 @@ namespace WebProgramming
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient("blazorapp",configureClient =>
+            {
+                configureClient.BaseAddress = new Uri(Configuration["ApiUrl:Default"]);
+            });
             services.AddRazorPages();
             services.AddDistributedMemoryCache();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
@@ -34,16 +38,17 @@ namespace WebProgramming
             services.AddScoped<INewsDal, EfNewsDal>();
             services.AddServerSideBlazor();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
             services.AddDbContext<NewsDbContext>(options =>
-                options.UseSqlServer(
-                Configuration["ConnectionStrings:NewsDbConnection"]));
+                options.UseSqlServer(Configuration["ConnectionStrings:NewsDbConnection"]));
+
             services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<NewsDbContext>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -72,6 +77,7 @@ namespace WebProgramming
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
             });
+            await app.EnsurePopulated();
         }
     }
 }

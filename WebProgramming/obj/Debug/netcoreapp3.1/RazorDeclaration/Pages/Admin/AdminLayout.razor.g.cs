@@ -12,63 +12,63 @@ namespace WebProgramming.Pages.Admin
     using System.Linq;
     using System.Threading.Tasks;
 #nullable restore
-#line 1 "C:\Users\Monster\source\repos\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
+#line 1 "C:\Users\Monster\Desktop\Cuma\WebProgramlama\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
 using Microsoft.AspNetCore.Components;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Monster\source\repos\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
+#line 2 "C:\Users\Monster\Desktop\Cuma\WebProgramlama\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Monster\source\repos\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
+#line 3 "C:\Users\Monster\Desktop\Cuma\WebProgramlama\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Monster\source\repos\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
+#line 4 "C:\Users\Monster\Desktop\Cuma\WebProgramlama\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\Monster\source\repos\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
+#line 5 "C:\Users\Monster\Desktop\Cuma\WebProgramlama\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
 using Microsoft.EntityFrameworkCore;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\Monster\source\repos\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
+#line 6 "C:\Users\Monster\Desktop\Cuma\WebProgramlama\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
 using WebProgramming.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\Monster\source\repos\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
+#line 8 "C:\Users\Monster\Desktop\Cuma\WebProgramlama\WebProgramming\WebProgramming\Pages\Admin\_Imports.razor"
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Monster\source\repos\WebProgramming\WebProgramming\Pages\Admin\AdminLayout.razor"
+#line 2 "C:\Users\Monster\Desktop\Cuma\WebProgramlama\WebProgramming\WebProgramming\Pages\Admin\AdminLayout.razor"
 using Microsoft.AspNetCore.Identity;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Monster\source\repos\WebProgramming\WebProgramming\Pages\Admin\AdminLayout.razor"
+#line 3 "C:\Users\Monster\Desktop\Cuma\WebProgramlama\WebProgramming\WebProgramming\Pages\Admin\AdminLayout.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
